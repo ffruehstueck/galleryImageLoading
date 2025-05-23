@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import GallerySlide from './GallerySlide';
@@ -14,11 +16,11 @@ const Gallery: React.FC<GalleryProps> = ({ slides }) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState<string[]>([]);
   const [isLoadingQueued, setIsLoadingQueued] = useState(false);
-  
-  const { 
-    scrollToNext, 
-    scrollToPrevious, 
-    hasNext, 
+
+  const {
+    scrollToNext,
+    scrollToPrevious,
+    hasNext,
     hasPrevious,
     handleScroll
   } = useGalleryNavigation(scrollContainerRef, slides.length, setActiveSlideIndex);
@@ -29,22 +31,22 @@ const Gallery: React.FC<GalleryProps> = ({ slides }) => {
 
   return (
     <div className="relative w-full">
-      <Debug 
+      <Debug
         loadedImages={loadedImages}
         currentSlideIndex={activeSlideIndex}
         isLoadingQueued={isLoadingQueued}
       />
-      
+
       {/* Main Gallery Container */}
-      <div 
+      <div
         ref={scrollContainerRef}
         className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
         onScroll={handleScroll}
       >
         {slides.map((slide, index) => (
-          <GallerySlide 
-            key={slide.id} 
-            slide={slide} 
+          <GallerySlide
+            key={slide.id}
+            slide={slide}
             isActive={activeSlideIndex === index}
             onImageLoad={handleImageLoad}
             onLoadingQueueChange={setIsLoadingQueued}
@@ -54,7 +56,7 @@ const Gallery: React.FC<GalleryProps> = ({ slides }) => {
 
       {/* Navigation Controls */}
       <div className="flex justify-between absolute top-1/2 left-0 right-0 transform -translate-y-1/2 pointer-events-none px-4">
-        <button 
+        <button
           onClick={scrollToPrevious}
           className={`p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-md text-gray-800 hover:bg-white transition-all pointer-events-auto
             ${!hasPrevious ? 'opacity-0' : 'opacity-100'}`}
@@ -63,8 +65,8 @@ const Gallery: React.FC<GalleryProps> = ({ slides }) => {
         >
           <ChevronLeft size={24} />
         </button>
-        
-        <button 
+
+        <button
           onClick={scrollToNext}
           className={`p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-md text-gray-800 hover:bg-white transition-all pointer-events-auto
             ${!hasNext ? 'opacity-0' : 'opacity-100'}`}
@@ -80,9 +82,8 @@ const Gallery: React.FC<GalleryProps> = ({ slides }) => {
         {slides.map((_, index) => (
           <button
             key={index}
-            className={`w-2 h-2 rounded-full transition-all ${
-              activeSlideIndex === index ? 'bg-gray-800 w-4' : 'bg-gray-400'
-            }`}
+            className={`w-2 h-2 rounded-full transition-all ${activeSlideIndex === index ? 'bg-gray-800 w-4' : 'bg-gray-400'
+              }`}
             onClick={() => {
               if (scrollContainerRef.current) {
                 const slideWidth = scrollContainerRef.current.offsetWidth;

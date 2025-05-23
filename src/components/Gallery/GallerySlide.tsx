@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { GallerySlideType } from '../../types/gallery';
 import GalleryImage from './GalleryImage';

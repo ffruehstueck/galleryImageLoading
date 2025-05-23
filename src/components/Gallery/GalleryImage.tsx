@@ -1,4 +1,7 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface GalleryImageProps {
   src: string;
@@ -8,12 +11,12 @@ interface GalleryImageProps {
   onLoad?: () => void;
 }
 
-const GalleryImage: React.FC<GalleryImageProps> = ({ 
-  src, 
-  alt, 
-  shouldLoad, 
+const GalleryImage: React.FC<GalleryImageProps> = ({
+  src,
+  alt,
+  shouldLoad,
   className,
-  onLoad 
+  onLoad
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,12 +50,14 @@ const GalleryImage: React.FC<GalleryImageProps> = ({
           )}
         </div>
       )}
-      
+
       {imageSrc && (
-        <img
+        <Image
           src={imageSrc}
           alt={alt}
-          className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 object-cover`}
           onLoad={handleImageLoad}
         />
       )}
